@@ -25,3 +25,7 @@ template: 'TemplateToolkit'
 #       start_tag: '<%'
 #       end_tag:   '%>'
 
+# APPLICATION
+
+application:
+  db_path: "./data/ustone.db"

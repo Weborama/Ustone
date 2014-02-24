@@ -1,0 +1,18 @@
+
+<form action="/new" method="post">
+
+  <div>
+  <label for="desc">What happened?</label>
+  <input id="desc" type="text" name="description" size="40" />
+  </div>
+
+  <div>
+  <label for="root">Why?</label>
+  <input type="text" name="root_cause" size="40" />
+  </div>
+
+  <div>
+  <input type="submit" value="Report!" />
+  </div>
+
+</form>
