@@ -5,10 +5,6 @@
       Got an issue today!
     [% ELSIF uptime == 2 %]
       Last issue yesterday
-    [% ELSIF uptime < 20 %]
-      Last issue [% uptime %] days ago
-    [% ELSIF uptime < 45 %]
-      Last issue [% uptime %] days ago
     [% ELSE %]
       [% uptime %] days since last issue
     [% END %]

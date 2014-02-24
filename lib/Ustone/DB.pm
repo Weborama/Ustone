@@ -46,7 +46,7 @@ sub uptime {
     my ($self) = @_;
     my $last_date = DateTime->from_epoch(epoch => $self->fetch_last_issue->{created_at} );
     my $now = DateTime->now;
-    return $now->delta_days($last_date)->days;
+    int($now->subtract_datetime_absolute($last_date)->delta_seconds / (24*60*60));
 }
 
 sub fetch_last_issue {
@@ -62,10 +62,11 @@ sub fetch_last_issue {
 }
 
 sub fetch_last_top {
-    my ($self, $number) = @_;
+    my ($self, $number, $offset) = @_;
     $number //= 10;
+    $offset //= 1;
 
-    my $sql = "select * from issues order by created_at desc limit 1,$number";
+    my $sql = "select * from issues order by created_at desc limit $offset,$number";
     my $sth = $self->_dbh->prepare($sql);
     $sth->execute;
     my $results = [];

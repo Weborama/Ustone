@@ -30,7 +30,7 @@ post '/new' => sub {
 };
 
 get '/archives' => sub {
-    my $archives = db->fetch_last_top(30);
+    my $archives = db->fetch_last_top(30, 0);
     template 'archives', { issues => $archives };
 };
 
