@@ -30,16 +30,13 @@
 
     <div class="container">
 
-    [% IF header %]
       <div class="header">
         <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
+          <li [% IF request.path == '/' %]class="active"[% END %]><a href="/">Dashboard</a></li>
+          <li [% IF request.path == '/archives' %]class="active"[% END %]><a href="/archives">Archives</a></li>
         </ul>
-        <h3 class="text-muted">Weborama</h3>
+        <h3 class="text-muted">[% platform_name %]</h3>
       </div>
-    [% END %]
 
       [% IF flash %]
       <div class="alert alert-error" style="margin-top: 1em;">

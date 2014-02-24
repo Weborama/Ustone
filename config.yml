@@ -29,3 +29,4 @@ template: 'TemplateToolkit'
 
 application:
   db_path: "./data/ustone.db"
+  platform_name: "Weborama"
