@@ -22,5 +22,8 @@ $db->create(
 
 is $db->size, 1, "an issue is added to the db";
 
+$db->purge;
+is $db->size, 0, "db has been purge";
+
 done_testing;
 
