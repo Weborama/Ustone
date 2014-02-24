@@ -60,6 +60,11 @@ sub size {
     return $r->[0];
 }
 
+sub purge {
+    my ($self) = @_;
+    $self->_dbh->do("delete from issues");
+}
+
 sub create {
     my ($self, %attrs) = @_;
 
