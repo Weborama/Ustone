@@ -1,0 +1,21 @@
+<div class="page-header">
+  <h1>Archives <small>Last 30 issues</small></h1>
+</div>
+
+[% FOREACH issue IN issues %]
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">[% issue.description %]</h3>
+  </div>
+  <div class="panel-body">
+    <div>
+    <strong>When: </strong><span title="[% issue.date %]">[% issue.date_ago %]</span>
+    </div>
+
+    <div>
+    <strong>Cause</strong>: [% issue.root_cause %]
+    </div>
+
+  </div>
+</div>
+[% END %]

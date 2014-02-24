@@ -12,6 +12,7 @@ It's stored in a storable file and retreived from there.
 
 use Moo;
 use DateTime;
+use DateTime::Duration::Fuzzy qw(time_ago);
 use Carp 'croak';
 use DBI;
 
@@ -41,13 +42,23 @@ sub _build_issues {
     return $sth->fetchall_arrayref;
 }
 
+sub uptime {
+    my ($self) = @_;
+    my $last_date = DateTime->from_epoch(epoch => $self->fetch_last_issue->{created_at} );
+    my $now = DateTime->now;
+    return $now->delta_days($last_date)->days;
+}
+
 sub fetch_last_issue {
     my ($self) = @_;
 
     my $sql = "select * from issues order by created_at desc limit 1";
     my $sth = $self->_dbh->prepare($sql);
     $sth->execute;
-    return $sth->fetchrow_hashref;
+    my $r = $sth->fetchrow_hashref;
+    $r->{date_ago} =
+      time_ago( DateTime->from_epoch( epoch => $r->{created_at} ), DateTime->now );
+    return $r;
 }
 
 sub fetch_last_top {
@@ -58,7 +69,10 @@ sub fetch_last_top {
     my $sth = $self->_dbh->prepare($sql);
     $sth->execute;
     my $results = [];
-    while (my $r = $sth->fetchrow_hashref) {
+    while ( my $r = $sth->fetchrow_hashref ) {
+        my $dt = DateTime->from_epoch( epoch => $r->{created_at} );
+        $r->{date_ago} = time_ago( $dt, DateTime->now );
+        $r->{date} = $dt->ymd('-') . ' ' . $dt->hms(':');
         push @{$results}, $r;
     }
     return $results;

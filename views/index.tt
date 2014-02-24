@@ -1,9 +1,26 @@
 <div class="jumbotron">
   [% IF current %]
-  <h1>[% current.description %], [% current.date_ago %]!</h1>
-  <p class="lead">
-  [% current.root_cause %]
-  </p>
+    <h1>
+    [% IF uptime < 1 %]
+      Got an issue today!
+    [% ELSIF uptime == 2 %]
+      Last issue yesterday
+    [% ELSIF uptime < 20 %]
+      Last issue [% uptime %] days ago
+    [% ELSIF uptime < 45 %]
+      Last issue [% uptime %] days ago
+    [% ELSE %]
+      [% uptime %] days since last issue
+    [% END %]
+    </h1>
+    
+    
+    <p class="lead">
+      [% current.description %]
+      <br />
+      [% current.root_cause %], [% current.date_ago %].
+    </p>
+
   [% ELSE %]
   <h1>No issues to report</h1>
 
@@ -12,7 +29,6 @@
   </p>
   [% END %]
   
-  <p><a class="btn btn-lg btn-success" href="/new" role="button">Report new issue</a></p>
 </div>
 
 <div class="row marketing">
@@ -24,3 +40,9 @@
   [% END %]
   </div>
 </div>
+
+
+<p>
+  <a class="btn btn-lg btn-danger" href="/new" role="button">Report new issue</a>
+  <a class="btn btn-lg btn-primary" href="/archives" role="button">Archives</a>
+</p>

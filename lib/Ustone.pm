@@ -13,6 +13,7 @@ sub db {
 
 get '/' => sub {
     template 'index', { 
+        uptime => db->uptime,
         top => db->fetch_last_top,
         current => db->fetch_last_issue,
     };
@@ -26,6 +27,11 @@ post '/new' => sub {
         root_cause => param('root_cause'),
     );
     redirect '/';
+};
+
+get '/archives' => sub {
+    my $archives = db->fetch_last_top(30);
+    template 'archives', { issues => $archives };
 };
 
 true;
