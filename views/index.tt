@@ -1,6 +1,6 @@
 <div class="jumbotron">
   <h1>Incident on the collect, 3 hours ago!</h1>
-  <p class="lead">i
+  <p class="lead">
   Due to a mistake during deployment, a bug was introduced which caused an error.
   </p>
   <!-- <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p> -->
