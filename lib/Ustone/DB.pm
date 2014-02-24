@@ -41,14 +41,27 @@ sub _build_issues {
     return $sth->fetchall_arrayref;
 }
 
-sub fetch_last {
+sub fetch_last_issue {
+    my ($self) = @_;
+
+    my $sql = "select * from issues order by created_at desc limit 1";
+    my $sth = $self->_dbh->prepare($sql);
+    $sth->execute;
+    return $sth->fetchrow_hashref;
+}
+
+sub fetch_last_top {
     my ($self, $number) = @_;
     $number //= 10;
 
-    my $sql = "select * from issues order by created_at desc limit $number";
+    my $sql = "select * from issues order by created_at desc limit 1,$number";
     my $sth = $self->_dbh->prepare($sql);
     $sth->execute;
-    return $sth->fetchall_arrayref;
+    my $results = [];
+    while (my $r = $sth->fetchrow_hashref) {
+        push @{$results}, $r;
+    }
+    return $results;
 }
 
 sub size { 
