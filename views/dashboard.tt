@@ -1,12 +1,12 @@
 <div class="jumbotron">
   [% IF current %]
     <h1>
-    [% IF uptime < 1 %]
+    [% IF uptime == 0 %]
       Got an issue today!
-    [% ELSIF uptime == 2 %]
+    [% ELSIF uptime == 1 %]
       Last issue yesterday
     [% ELSE %]
-      [% uptime %] days since last issue
+      [% uptime %] days 
     [% END %]
     </h1>
 
