@@ -41,6 +41,7 @@ get '/admin' => sub {
     template 'dashboard',
       {
         uptime  => db->uptime,
+        size    => db->size,
         top     => db->fetch_last_top(3),
         current => db->fetch_last_issue,
       };
