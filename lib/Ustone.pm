@@ -39,7 +39,7 @@ get '/uptime' => sub {
     }
 
     if ($uptime == 0) {
-        $message = "We got an issue!";
+        $message = "Something is wrong";
     }
     elsif ($uptime == 1) {
         $message = "No worries since yesterday...";
