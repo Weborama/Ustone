@@ -1,0 +1,45 @@
+<div class="jumbotron">
+  [% IF current %]
+    <h1>
+    [% IF uptime < 1 %]
+      Got an issue today!
+    [% ELSIF uptime == 2 %]
+      Last issue yesterday
+    [% ELSE %]
+      [% uptime %] days since last issue
+    [% END %]
+    </h1>
+
+    <p class="lead">
+      [% size %] issues accounted.
+    </p>
+
+  [% ELSE %]
+  <h1>No issues to report</h1>
+
+  <p class="lead">
+    The database is empty, maybe you want to report your first issue by clicking below!
+  </p>
+  [% END %]
+  
+</div>
+
+<h2>Report a new issue</h2>
+
+<div style="margin-bottom: 1em;">
+<form role="form" action="/new" method="post">
+
+  <div class="form-group">
+  <label for="desc">Issue description</label>
+  <input id="desc" type="text" class="form-control" placeholder="Enter issue" name="description" size="40" />
+  </div>
+
+  <div class="form-group">
+  <label for="root">What caused the issue</label>
+  <input type="text" class="form-control" name="root_cause" placeholder="Reason" size="40" />
+  </div>
+
+  <button type="submit" class="btn btn-default">Report</button>
+</form>
+
+</div>

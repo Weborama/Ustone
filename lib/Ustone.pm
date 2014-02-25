@@ -60,7 +60,7 @@ get '/uptime' => sub {
 };
 
 get '/dashboard' => sub {
-    template 'index', { 
+    template 'dashboard', { 
         uptime => db->uptime,
         top => db->fetch_last_top(3),
         current => db->fetch_last_issue,
