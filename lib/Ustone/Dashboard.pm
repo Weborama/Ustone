@@ -2,6 +2,7 @@ package Ustone::Dashboard;
 
 use feature ':5.10';
 use Dancer2;
+use Dancer2::Plugin::Ajax;
 use Digest::SHA1 'sha1_hex';
 use Ustone::DB;
 
@@ -14,11 +15,6 @@ sub db {
 hook 'before_template' => sub {
     my $tokens = shift;
     $tokens->{platform_name} = config->{'application'}->{'platform_name'};
-};
-
-hook 'before' => sub {
-    return if request->path eq '/auth';
-    redirect '/auth' if ! session('admin');
 };
 
 any ['get', 'post'], '/auth' => sub {
@@ -38,6 +34,8 @@ any ['get', 'post'], '/auth' => sub {
 };
 
 get '/admin' => sub {
+    redirect '/auth' if ! session('admin');
+
     template 'dashboard',
       {
         uptime  => db->uptime,
@@ -47,5 +45,33 @@ get '/admin' => sub {
       };
 };
 
+post '/new' => sub {
+    redirect '/auth' if ! session('admin');
+
+    db->create(
+        description => param('description'), 
+        root_cause => param('root_cause'),
+    );
+    redirect '/';
+};
+
+post '/update' => sub {
+    redirect '/auth' if ! session('admin');
+
+    db->update(
+        id          => param('id'),
+        description => param('description'), 
+        root_cause => param('root_cause'),
+    );
+    redirect '/archives';
+};
+
+ajax '/delete/:id' => sub {
+    redirect '/auth' if ! session('admin');
+
+    my $id = param('id');
+    content_type 'application/json';
+    to_json{ status => db->delete($id) };
+};
 
 1;

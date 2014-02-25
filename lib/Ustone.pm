@@ -60,14 +60,6 @@ get '/uptime' => sub {
       };
 };
 
-post '/new' => sub {
-    db->create(
-        description => param('description'), 
-        root_cause => param('root_cause'),
-    );
-    redirect '/';
-};
-
 get '/archives' => sub {
     my $archives = db->fetch_last_top(30, 0);
     template 'archives', { issues => $archives };

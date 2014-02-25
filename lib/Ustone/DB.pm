@@ -93,6 +93,28 @@ sub purge {
     $self->_dbh->do("delete from issues");
 }
 
+sub delete {
+    my ($self, $id) = @_;
+    my $sth = $self->_dbh->prepare("delete from issues where id = ?");
+    $sth->execute($id);
+}
+
+sub update {
+    my ($self, %attrs) = @_;
+
+    my $id = $attrs{id};
+    croak "Need an issue id" if ! defined $id;
+
+    my $description = $attrs{description};
+    croak "Need an issue description" if ! defined $description;
+
+    my $root_cause = $attrs{root_cause};
+    croak "Need a route cause" if ! defined $root_cause;
+
+    my $sth = $self->_dbh->prepare("update issues set description = ?, root_cause = ? where id = ?");
+    $sth->execute($description, $root_cause, $id);
+}
+
 sub create {
     my ($self, %attrs) = @_;
 

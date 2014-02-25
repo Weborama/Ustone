@@ -2,20 +2,75 @@
   <h1>Archives <small>Last 30 issues</small></h1>
 </div>
 
+<script>
+
+  function on_click_btn_update(id) {
+    $("#issue_box_"+id).hide();
+    $("#issue_update_"+id).show();
+  }
+
+  function on_submit_update(id) {
+
+  }
+
+  function on_click_btn_delete(id) {
+    var url = "/delete/"+id;
+    if (confirm("Are you sure you want to delete issue #"+id+"?")) {
+      $.ajax({
+        "url": url,
+        "method": "POST",
+        "success": function(data) {
+          $("#issue_box_"+id).fadeOut();
+        },
+        "error": function(data) {
+          alert("error: "+data);
+        }
+      });
+    }
+  }
+</script>
+
 [% FOREACH issue IN issues %]
-<div class="panel panel-default">
+<div class="panel panel-default" id="issue_box_[% issue.id %]">
   <div class="panel-heading">
-    <h3 class="panel-title">[% issue.description %]</h3>
+    <h3 class="panel-title">[% issue.id %]. [% issue.description %]</h3>
+
   </div>
   <div class="panel-body">
     <div>
     <strong>When: </strong><span title="[% issue.date %]">[% issue.date_ago %]</span>
     </div>
-
     <div>
-    <strong>Cause</strong>: [% issue.root_cause %]
+    <strong>Cause: </strong> [% issue.root_cause %]
     </div>
-
   </div>
+
+  [% IF session.admin %]
+    <div class="btn-group">
+      <button type="button" onclick="on_click_btn_update('[% issue.id %]')" class="btn btn-default">Update</button>
+      <button type="button" onclick="on_click_btn_delete('[% issue.id %]')" class="btn btn-default">Delete</button>
+    </div>
+  [% END %]
+
+</div>
+
+<div id="issue_update_[% issue.id %]" style="display: none;">
+<form role="form" action="/update" method="post">
+
+  <input type="hidden" name="id" value="[% issue.id %]" />
+
+  <div class="form-group">
+  <label for="desc">Issue description</label>
+  <input id="desc" type="text" class="form-control" value="[% issue.description %]" name="description" size="40" />
+  </div>
+
+  <div class="form-group">
+  <label for="root">What caused the issue</label>
+  <input type="text" class="form-control" name="root_cause" value="[% issue.root_cause %]" size="40" />
+  </div>
+
+  <button type="submit" class="btn btn-default">Update</button>
+</form>
+
 </div>
 [% END %]
