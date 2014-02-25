@@ -24,9 +24,3 @@ template: 'TemplateToolkit'
 #     template_toolkit:
 #       start_tag: '<%'
 #       end_tag:   '%>'
-
-# APPLICATION
-
-application:
-  db_path: "./data/ustone.db"
-  platform_name: "Weborama"

@@ -9,7 +9,7 @@ logger: "console"
 # the log level for this environment
 # core is the lowest, it shows Dancer2's core log messages as well as yours
 # (debug, info, warning and error)
-log: "core"
+log: "debug"
 
 # should Dancer2 consider warnings as critical errors?
 warnings: 1
@@ -19,3 +19,9 @@ show_errors: 1
 
 # print the banner
 startup_info: 1
+
+application:
+  db_path: "./data/ustone.db"
+  platform_name: "My Awesome"
+  passphrase: "fda2691b13ad68c3c312f5915f74b1a0e46bde16" # T3st
+
