@@ -37,19 +37,18 @@ get '/uptime' => sub {
         $color = '#2b6829';
     }
 
-    if ($uptime < 0) {
+    if ($uptime == 0) {
         $message = "We got an issue!";
     }
-    elsif ($uptime < 2) {
+    elsif ($uptime == 1) {
         $message = "No worries since yesterday...";
     }
-    elsif ($uptime < 44) {
+    elsif ($uptime < 30) {
         $message = "days without an issue";
     }
     else {
         $message = "Wow, so long!!";
     }
-
 
     template 'uptime',
       {
