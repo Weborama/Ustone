@@ -1,4 +1,6 @@
 blib/
+.htpasswd
+.htaccess
 data/
 .build/
 _build/
