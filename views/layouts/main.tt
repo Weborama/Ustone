@@ -33,8 +33,10 @@
       <div class="header">
         <ul class="nav nav-pills pull-right">
           <li [% IF request.path == '/uptime' %]class="active"[% END %]><a href="/uptime">Uptime</a></li>
-          <!-- <li [% IF request.path == '/dashboard' %]class="active"[% END %]><a href="/dashboard">Dashboard</a></li> -->
           <li [% IF request.path == '/archives' %]class="active"[% END %]><a href="/archives">Archives</a></li>
+          [% IF session.admin %]
+          <li [% IF request.path == '/admin' %]class="active"[% END %]><a href="/admin">Admin</a></li>
+          [% END %]
         </ul>
         <h3 class="text-muted">[% platform_name %]</h3>
       </div>

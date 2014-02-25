@@ -4,6 +4,7 @@ use Dancer2;
 use feature ':5.10';
 our $VERSION = '0.1';
 use Ustone::DB;
+use Ustone::Dashboard;
 
 sub db {
     state $db = Ustone::DB->new( 
@@ -58,16 +59,6 @@ get '/uptime' => sub {
         issue   => $last,
       };
 };
-
-get '/dashboard' => sub {
-    template 'dashboard', { 
-        uptime => db->uptime,
-        top => db->fetch_last_top(3),
-        current => db->fetch_last_issue,
-    };
-};
-
-get '/new' => sub { template 'new' };
 
 post '/new' => sub {
     db->create(
