@@ -43,3 +43,7 @@
 </form>
 
 </div>
+
+<script>
+$('#desc').focus();
+</script>
