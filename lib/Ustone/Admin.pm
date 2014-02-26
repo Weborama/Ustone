@@ -1,4 +1,4 @@
-package Ustone::Dashboard;
+package Ustone::Admin;
 
 use feature ':5.10';
 use Dancer2;
@@ -35,7 +35,7 @@ any ['get', 'post'], '/auth' => sub {
     template 'auth.tt';
 };
 
-sub request_administrator {
+sub require_administrator {
     if (! session('admin')) {
         deferred warning => "Session invalid or expired, please authenticate yourself";
         redirect '/auth';
@@ -43,8 +43,8 @@ sub request_administrator {
 }
 
 get '/admin' => sub {
-    request_administrator();
-    template 'dashboard',
+    require_administrator();
+    template 'admin',
       {
         uptime  => db->uptime,
         size    => db->size,
@@ -54,7 +54,7 @@ get '/admin' => sub {
 };
 
 post '/new' => sub {
-    request_administrator();
+    require_administrator();
 
     db->create(
         description => param('description'), 
@@ -66,7 +66,7 @@ post '/new' => sub {
 };
 
 post '/update' => sub {
-    request_administrator();
+    require_administrator();
 
     db->update(
         id          => param('id'),
@@ -77,7 +77,7 @@ post '/update' => sub {
 };
 
 ajax '/delete/:id' => sub {
-    request_administrator();
+    require_administrator();
 
     my $id = param('id');
     content_type 'application/json';
