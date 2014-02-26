@@ -15,6 +15,15 @@ sub db {
 hook 'before_template' => sub {
     my $tokens = shift;
     $tokens->{platform_name} = config->{'application'}->{'platform_name'};
+
+    foreach my $flash qw(info warning danger) {
+        my $key = "flash_${flash}";
+        my $msg = session($key);
+        if (defined $msg) {
+            session $key => undef;
+        }
+        $tokens->{$key} = $msg;
+    }
 };
 
 any ['get', 'post'], '/auth' => sub {
@@ -27,10 +36,10 @@ any ['get', 'post'], '/auth' => sub {
             redirect '/admin';
         }
         else {
-            $message = "bad passphrase";
+            session flash_danger => "The passphrase is not valid, please try again.";
         }
     }
-    template 'auth.tt', { message => $message };
+    template 'auth.tt';
 };
 
 get '/admin' => sub {
@@ -52,6 +61,8 @@ post '/new' => sub {
         description => param('description'), 
         root_cause => param('root_cause'),
     );
+
+    session flash_success => "Issue saved correctly, uptime reset is done.";
     redirect '/';
 };
 

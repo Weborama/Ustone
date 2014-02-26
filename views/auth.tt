@@ -2,12 +2,6 @@
 
 <p class="lead">You need to be authenticated as the administrator to enter this area, please provide the passphrase.</p>
 
-[% IF message %]
-<p class="alert">
-[% message %]
-</p>
-[% END %]
-
 <div style="margin-bottom: 2em;">
 <form role="form" action="/auth" method="post">
 
