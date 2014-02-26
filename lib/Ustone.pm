@@ -1,10 +1,11 @@
 package Ustone;
 use Dancer2;
+use Dancer2::Plugin::Deferred;
 
 use feature ':5.10';
 our $VERSION = '0.1';
 use Ustone::DB;
-use Ustone::Dashboard;
+use Ustone::Admin;
 
 sub db {
     state $db = Ustone::DB->new( 

@@ -41,10 +41,10 @@
         <h3 class="text-muted">[% platform_name %]</h3>
       </div>
 
-      [% IF flash_success %]<div class="alert alert-success"> [% flash_success %]</div>[% END %]
-      [% IF flash_info %]<div class="alert alert-info"> [% flash_info %]</div>[% END %]
-      [% IF flash_warning %]<div class="alert alert-warning"> [% flash_warning %]</div>[% END %]
-      [% IF flash_danger %]<div class="alert alert-danger"> [% flash_danger %]</div>[% END %]
+      [% IF deferred.success %]<div class="alert alert-success">[% deferred.success %]</div>[% END %]
+      [% IF deferred.info %]<div class="alert alert-info">[% deferred.info %]</div>[% END %]
+      [% IF deferred.warning %]<div class="alert alert-warning">[% deferred.warning %]</div>[% END %]
+      [% IF deferred.error %]<div class="alert alert-danger">[% deferred.error %]</div>[% END %]
 
       [% content %]
 
