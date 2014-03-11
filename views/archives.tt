@@ -33,15 +33,18 @@
 [% FOREACH issue IN issues %]
 <div class="panel panel-default" id="issue_box_[% issue.id %]">
   <div class="panel-heading">
-    <h3 class="panel-title">[% issue.id %]. [% issue.description %]</h3>
+    <h3 class="panel-title">[% issue.description %]</h3>
 
   </div>
   <div class="panel-body">
     <div>
-    <strong>When: </strong><span title="[% issue.date %]">[% issue.date_ago %]</span>
+      <strong>When: </strong><span title="[% issue.date %]">[% issue.date_ago %]</span>
     </div>
     <div>
-    <strong>Cause: </strong> [% issue.root_cause %]
+      <strong>Cause: </strong> [% issue.root_cause %]
+    </div>
+    <div>
+      <strong>Uptime: </strong> [% issue.uptime_since || "?" %] days 
     </div>
   </div>
 

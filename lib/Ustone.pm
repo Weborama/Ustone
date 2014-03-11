@@ -16,6 +16,8 @@ sub db {
 hook 'before_template' => sub {
     my $tokens = shift;
     $tokens->{platform_name} = config->{'application'}->{'platform_name'};
+    $tokens->{uptime}        = db->uptime;
+    $tokens->{highscore}     = db->highscore;
 };
 
 get '/' => sub { redirect '/uptime' };
